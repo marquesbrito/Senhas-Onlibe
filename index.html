@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rota das Vaquejadas - Senhas Online</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 25px;
+        align-items: start;
+        width: 100%;
+        flex: 1;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+        backdrop-filter: blur(8px);
+    }
+
+    .logo {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: #7c3aed;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .logo i {
+        color: #22c55e;
+    }
+
+    h1 {
+        font-size: 1.9rem;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: rgba(255,255,255,0.75);
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .info-box {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 14px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .info-box i {
+        background: #7c3aed;
+        padding: 10px;
+        border-radius: 10px;
+        color: #fff;
+    }
+
+    .info-box span {
+        font-size: 0.95rem;
+        color: rgba(255,255,255,0.85);
+    }
+
+    /* FORM */
+    .form-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .form-title h2 {
+        font-size: 1.4rem;
+        color: #fff;
+    }
+
+    .category {
+        margin-bottom: 18px;
+        padding: 18px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+    }
+
+    .category h3 {
+        font-size: 1.1rem;
+        color: #fff;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* BADGES NOVAS DAS CATEGORIAS */
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+    .badge i {
+        font-size: 0.9rem;
+    }
+    .badge.aberta {
+        background: rgba(34,197,94,0.12);
+        border-color: rgba(34,197,94,0.35);
+        color: #a7f3d0;
+    }
+    .badge.aspirante {
+        background: rgba(124,58,237,0.12);
+        border-color: rgba(124,58,237,0.35);
+        color: #c4b5fd;
+    }
+    .badge.master {
+        background: rgba(249,115,22,0.12);
+        border-color: rgba(249,115,22,0.35);
+        color: #fed7aa;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: rgba(255,255,255,0.8);
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.18);
+        background: rgba(255,255,255,0.06);
+        color: #fff;
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus {
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 3px rgba(124,58,237,0.25);
+    }
+
+    select option {
+        color: #000;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 14px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(135deg, #22c55e 0%, #7c3aed 100%);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(34,197,94,0.35);
+    }
+
+    .btn:active {
+        transform: translateY(0px);
+    }
+
+    .required::after {
+        content: " *";
+        color: #f43f5e;
+    }
+
+    .cursoSelect {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 15px;
+        padding-right: 45px;
+        cursor: pointer;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    /* FOOTER */
+    .footer {
+        width: 100%;
+        text-align: center;
+        padding: 20px 10px;
+        margin-top: 20px;
+        color: rgba(255,255,255,0.75);
+        font-size: 0.95rem;
+        border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .footer p {
+        margin: 5px 0;
+    }
+
+    /* Responsivo */
+    @media (max-width: 900px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- LADO ESQUERDO -->
+    <div class="card">
+        <div class="logo">
+            <i class="fas fa-horse"></i>
+            <span>Rota da Vaquejada</span>
+        </div>
+        <h1>Senhas Online</h1>
+        <p>Escolha sua categoria e o número da senha. Depois clique em enviar para WhatsApp.</p>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <i class="fas fa-check"></i>
+                <span>Senhas removidas após serem escolhidas</span>
+            </div>
+            <div class="info-box">
+                <i class="fas fa-shield-alt"></i>
+                <span>Envio rápido e seguro para WhatsApp</span>
+            </div>
+            <div class="info-box">
+                <i class="fas fa-bolt"></i>
+                <span>Interface moderna e responsiva</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LADO DIREITO -->
+    <div class="card">
+        <div class="form-title">
+            <h2><i class="fas fa-edit"></i> Formulário</h2>
+        </div>
+
+        <form id="formMatricula">
+            <div class="category">
+                <label for="nomeAluno" class="required">Nome do Vaqueiro</label>
+                <input type="text" id="nomeAluno" placeholder="Digite seu nome completo" required>
+            </div>
+
+            <div class="category">
+                <label for="endereco" class="required">Nome do Esteira</label>
+                <input type="text" id="endereco" placeholder="Digite o nome do esteira" required>
+            </div>
+
+            <div class="category">
+                <label for="cidade">Representação</label>
+                <input type="text" id="cidade" placeholder="Representando (opcional)">
+            </div>
+
+            <div class="category">
+                <label for="modalidade" class="required">Categoria</label>
+                <select id="modalidade" required>
+                    <option value="">Selecione a Categoria</option>
+                    <option value="Aberta">Aberta</option>
+                    <option value="Aspirante">Aspirante</option>
+                    <option value="Master">Master</option>
+                </select>
+            </div>
+
+            <!-- CAMPO NOVO: BOI TV -->
+            <div class="category">
+                <label for="boitv" class="required">Boi TV?</label>
+                <select id="boitv" required>
+                    <option value="">Selecione</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
+
+            <!-- APENAS APARECEM QUANDO SELECIONA A CATEGORIA -->
+            <div class="category hidden" id="boxAberta">
+                <h3>
+                    <span class="badge aberta"><i class="fas fa-fire"></i> Aberta</span>
+                </h3>
+                <select id="cursoInformatica" class="cursoSelect">
+                    <option value="">Selecione o número</option>
+                </select>
+            </div>
+
+            <div class="category hidden" id="boxAspirante">
+                <h3>
+                    <span class="badge aspirante"><i class="fas fa-star"></i> Aspirante</span>
+                </h3>
+                <select id="cursoEstetica" class="cursoSelect">
+                    <option value="">Selecione o número</option>
+                </select>
+            </div>
+
+            <div class="category hidden" id="boxMaster">
+                <h3>
+                    <span class="badge master"><i class="fas fa-crown"></i> Master</span>
+                </h3>
+                <select id="gastronomia" class="cursoSelect">
+                    <option value="">Selecione o número</option>
+                </select>
+            </div>
+
+            <button type="button" id="enviar" class="btn">
+                <i class="fab fa-whatsapp"></i> Enviar para WhatsApp
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>© Desenvolvido pela UniTech - Todos os direitos reservados</p>
+    <p>
+        <i class="fas fa-phone-alt"></i> (83) 99972-24047 | 
+        <i class="fas fa-map-marker-alt"></i> Monteiro-PB
+    </p>
+</div>
+
+<script>
+const aberto = document.getElementById("cursoInformatica");
+const aspirante = document.getElementById("cursoEstetica");
+const master = document.getElementById("gastronomia");
+
+const boxAberta = document.getElementById("boxAberta");
+const boxAspirante = document.getElementById("boxAspirante");
+const boxMaster = document.getElementById("boxMaster");
+
+function gerarNumeros(select, inicio, fim) {
+    for (let i = inicio; i <= fim; i++) {
+        const option = document.createElement("option");
+        option.value = i.toString();
+        option.textContent = i.toString();
+        select.appendChild(option);
+    }
+}
+
+// popula os selects
+gerarNumeros(aberto, 1, 101);
+gerarNumeros(aspirante, 1001, 1100);
+gerarNumeros(master, 2001, 2100);
+
+// mostra o bloco conforme a categoria
+document.getElementById("modalidade").addEventListener("change", function () {
+    const categoria = this.value;
+
+    boxAberta.classList.add("hidden");
+    boxAspirante.classList.add("hidden");
+    boxMaster.classList.add("hidden");
+
+    if (categoria === "Aberta") boxAberta.classList.remove("hidden");
+    if (categoria === "Aspirante") boxAspirante.classList.remove("hidden");
+    if (categoria === "Master") boxMaster.classList.remove("hidden");
+});
+
+// remove número selecionado APÓS enviar para whatsapp
+function removerNumeroEscolhido(select) {
+    const valor = select.value;
+    if (!valor) return;
+
+    const option = Array.from(select.options).find(o => o.value === valor);
+    if (option) option.remove();
+
+    // resetar para o padrão
+    select.value = "";
+}
+
+document.getElementById("enviar").addEventListener("click", function () {
+    const nome = document.getElementById("nomeAluno").value;
+    const esteira = document.getElementById("endereco").value;
+    const representacao = document.getElementById("cidade").value;
+    const categoria = document.getElementById("modalidade").value;
+    const boitv = document.getElementById("boitv").value;
+
+    const numAberto = aberto.value;
+    const numAspirante = aspirante.value;
+    const numMaster = master.value;
+
+    if (!nome || !esteira || !categoria || !boitv) {
+        alert("Preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    let mensagem = `🏇 *SENHA VAQUEJADA* 🏇%0A%0A`;
+    mensagem += `👤 Vaqueiro: ${nome}%0A`;
+    mensagem += `🐎 Esteira: ${esteira}%0A`;
+
+    // só adiciona se preencher
+    if (representacao) mensagem += `📍 Representação: ${representacao}%0A`;
+
+    mensagem += `🏷 Categoria: ${categoria}%0A`;
+    mensagem += `📺 Boi TV: ${boitv}%0A%0A`;
+
+    if (categoria === "Aberta" && numAberto) mensagem += `✅ Aberta - Senha: ${numAberto}%0A`;
+    if (categoria === "Aspirante" && numAspirante) mensagem += `✅ Aspirante - Senha: ${numAspirante}%0A`;
+    if (categoria === "Master" && numMaster) mensagem += `✅ Master - Senha: ${numMaster}%0A`;
+
+    const telefone = "5583999724047";
+    const url = `https://wa.me/${telefone}?text=${mensagem}`;
+    window.open(url, "_blank");
+
+    // remove o número escolhido após abrir o WhatsApp
+    if (categoria === "Aberta") removerNumeroEscolhido(aberto);
+    if (categoria === "Aspirante") removerNumeroEscolhido(aspirante);
+    if (categoria === "Master") removerNumeroEscolhido(master);
+});
+</script>
+</body>
+</html>
